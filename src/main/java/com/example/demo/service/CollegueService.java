@@ -41,7 +41,7 @@ public class CollegueService {
 
     public Collegue rechercherParMatricule(String matriculeRecherche) throws CollegueNonTrouverException {
         // TODO retourner le collègue dont le matricule est fourni
-        if (data.containsKey(matriculeRecherche))
+        if (!data.containsKey(matriculeRecherche))
             throw new CollegueNonTrouverException();
 
         // TODO retourner une exception `CollegueNonTrouveException` (à créer)
