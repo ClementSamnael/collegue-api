@@ -1,4 +1,4 @@
-package service;
+package com.example.demo.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import entite.Collegue;
+import com.example.demo.entite.Collegue;
 
 public class CollegueService {
 
@@ -16,12 +16,14 @@ public class CollegueService {
     public CollegueService() {
         // TODO alimenter data avec des données fictives
         // Pour générer un matricule : `UUID.randomUUID().toString()`
-
-        data.put("", new Collegue(UUID.randomUUID().toString(), "Durand", "Amandine", "amandine.durand@societe.com",
+        String mat1 = UUID.randomUUID().toString();
+        String mat2 = UUID.randomUUID().toString();
+        String mat3 = UUID.randomUUID().toString();
+        data.put(mat1, new Collegue(mat1, "Durand", "Amandine", "amandine.durand@societe.com",
                 LocalDate.of(1991, 9, 21), "photo.png"));
-        data.put("", new Collegue(UUID.randomUUID().toString(), "Robert", "Clement", "clement.robert@societe.com",
+        data.put(mat2, new Collegue(mat2, "Robert", "Clement", "clement.robert@societe.com",
                 LocalDate.of(1992, 11, 11), "photo.png"));
-        data.put("", new Collegue(UUID.randomUUID().toString(), "Leroy", "Yoann", "yoann.leroy@societe.com",
+        data.put(mat3, new Collegue(mat3, "Leroy", "Yoann", "yoann.leroy@societe.com",
                 LocalDate.of(1987, 1, 14), "photo.png"));
     }
 
