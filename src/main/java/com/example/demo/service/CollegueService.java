@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,10 @@ import com.example.demo.exception.CollegueNonTrouverException;
 
 public class CollegueService {
 
+    private static final int TAILLE_EMAIL_MINIMUM = 3;
+    private static final int TAILLE_PRENOM_MINIMUM = 2;
+    private static final int TAILLE_NOM_MINIMUM = 2;
+    private static final int AGE_MINIMUM = 18;
     private Map<String, Collegue> data = new HashMap<>();
 
     public CollegueService() {
@@ -58,21 +63,17 @@ public class CollegueService {
         // TODO Vérifier que la date de naissance correspond à un age >= 18
         // TODO Si une des règles ci-dessus n'est pas valide, générer une exception :
         // `CollegueInvalideException`.
-
-        // TODO générer un matricule pour ce collègue (`UUID.randomUUID().toString()`)
-
-        // TODO Sauvegarder le collègue
-        if ((collegueAAjouter.getNom().trim().length() >= 2) && (collegueAAjouter.getPrenom().trim().length() >= 2)
-                && (collegueAAjouter.getEmail().trim().length() >= 3 && collegueAAjouter.getEmail().contains("@"))
-                && (collegueAAjouter.getPhotoUrl().startsWith("http"))
-                && (collegueAAjouter.getDateDeNaissance().getYear() - LocalDate.now().getYear()) >= 18) {
-
-            collegueAAjouter.setMatricule(UUID.randomUUID().toString());
-            data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
-            return collegueAAjouter;
-
+        if (collegueAAjouter.getNom().length() < TAILLE_NOM_MINIMUM
+                || collegueAAjouter.getPrenom().length() < TAILLE_PRENOM_MINIMUM
+                || collegueAAjouter.getEmail().length() < TAILLE_EMAIL_MINIMUM
+                || !collegueAAjouter.getEmail().contains("@") || !collegueAAjouter.getPhotoUrl().startsWith("http")
+                || Period.between(collegueAAjouter.getDateDeNaissance(), LocalDate.now()).getYears() < AGE_MINIMUM) {
+            throw new CollegueInvalideException("Collegue invalide !");
         }
-        throw new CollegueInvalideException();
+        // TODO générer un matricule pour ce collègue (`UUID.randomUUID().toString()`)
+        collegueAAjouter.setMatricule(UUID.randomUUID().toString());
+        // TODO Sauvegarder le collègue
+        data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
+        return collegueAAjouter;
     }
-
 }
