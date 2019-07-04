@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.example.demo.entite.Collegue;
+import com.example.demo.exception.CollegueInvalideException;
 import com.example.demo.exception.CollegueNonTrouverException;
 
 public class CollegueService {
@@ -21,11 +22,11 @@ public class CollegueService {
         String mat2 = UUID.randomUUID().toString();
         String mat3 = UUID.randomUUID().toString();
         data.put(mat1, new Collegue(mat1, "Durand", "Amandine", "amandine.durand@societe.com",
-                LocalDate.of(1991, 9, 21), "photo.png"));
+                LocalDate.of(1991, 9, 21), "https://randomuser.me/api/portraits/women/76.jpg"));
         data.put(mat2, new Collegue(mat2, "Robert", "Clement", "clement.robert@societe.com", LocalDate.of(1992, 11, 11),
-                "photo.png"));
+                "https://randomuser.me/api/portraits/men/76.jpg"));
         data.put(mat3, new Collegue(mat3, "Leroy", "Yoann", "yoann.leroy@societe.com", LocalDate.of(1987, 1, 14),
-                "photo.png"));
+                "https://randomuser.me/api/portraits/men/75.jpg"));
     }
 
     public List<Collegue> rechercherParNom(String nomRecherche) {
@@ -49,4 +50,29 @@ public class CollegueService {
 
         return data.get(matriculeRecherche);
     }
+
+    public Collegue ajouterUnCollegue(Collegue collegueAAjouter) throws CollegueInvalideException {
+        // TODO Vérifier que le nom et les prenoms ont chacun au moins 2 caractères
+        // TODO Vérifier que l'email a au moins 3 caractères et contient `@`
+        // TODO Vérifier que la photoUrl commence bien par `http`
+        // TODO Vérifier que la date de naissance correspond à un age >= 18
+        // TODO Si une des règles ci-dessus n'est pas valide, générer une exception :
+        // `CollegueInvalideException`.
+
+        // TODO générer un matricule pour ce collègue (`UUID.randomUUID().toString()`)
+
+        // TODO Sauvegarder le collègue
+        if ((collegueAAjouter.getNom().trim().length() >= 2) && (collegueAAjouter.getPrenom().trim().length() >= 2)
+                && (collegueAAjouter.getEmail().trim().length() >= 3 && collegueAAjouter.getEmail().contains("@"))
+                && (collegueAAjouter.getPhotoUrl().startsWith("http"))
+                && (collegueAAjouter.getDateDeNaissance().getYear() - LocalDate.now().getYear()) >= 18) {
+
+            collegueAAjouter.setMatricule(UUID.randomUUID().toString());
+            data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
+            return collegueAAjouter;
+
+        }
+        throw new CollegueInvalideException();
+    }
+
 }
