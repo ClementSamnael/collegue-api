@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package dev.exception;
 
 public class CollegueNonTrouverException extends RuntimeException{
 
@@ -7,6 +7,6 @@ public class CollegueNonTrouverException extends RuntimeException{
      */
     private static final long serialVersionUID = 1L;
 
-    public CollegueNonTrouverException() {
+    public CollegueNonTrouverException(String execption) {
     }
 }

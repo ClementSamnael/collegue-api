@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package dev.exception;
 
 public class CollegueInvalideException extends RuntimeException{
 

@@ -1,14 +1,23 @@
-package com.example.demo.entite;
+package dev.entite;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+
+@Entity
 public class Collegue {
 
+	@Id
     public String matricule;
     public String nom;
     public String prenom;
     public String email;
+	@Column(name = "Date_de_Naissance")
     public LocalDate dateDeNaissance;
+	@Column(name = "Photo")
     public String photoUrl;
 
     public Collegue() {
@@ -23,8 +32,6 @@ public class Collegue {
         this.dateDeNaissance = dateDeNaissance;
         this.photoUrl = photoUrl;
     }
-
-    
     
     public Collegue(String nom, String prenom, String email, LocalDate dateDeNaissance, String photoUrl) {
         this.nom = nom;

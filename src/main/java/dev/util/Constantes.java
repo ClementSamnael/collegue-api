@@ -1,6 +1,6 @@
-package com.example.demo.util;
+package dev.util;
 
-import com.example.demo.service.CollegueService;
+import dev.service.CollegueService;
 
 public interface Constantes {
 

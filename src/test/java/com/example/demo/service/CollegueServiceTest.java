@@ -7,9 +7,10 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import com.example.demo.entite.Collegue;
-import com.example.demo.exception.CollegueInvalideException;
-import com.example.demo.util.Constantes;
+import dev.entite.Collegue;
+import dev.exception.CollegueInvalideException;
+import dev.service.CollegueService;
+import dev.util.Constantes;
 
 public class CollegueServiceTest {
 
