@@ -48,21 +48,14 @@ public class CollegueController {
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH, path = "/collegues/{matricule}")
-	public ResponseEntity<Object> modifierCollegue(@PathVariable String matricule, @RequestBody Collegue collegue) {
-		boolean update = false;
-		String body = "";
+	public Collegue modifierCollegue(@PathVariable String matricule, @RequestBody Collegue collegue) {
 		if (collegue.getEmail() != null && !collegue.getEmail().equals("")) {
 			lesCollegues.modifierEmail(matricule, collegue.getEmail());
-			update = true;
-			body += "Email modifié<br/>";
 		}
 		if (collegue.getPhotoUrl() != null && !collegue.getPhotoUrl().equals("")) {
 			lesCollegues.modifierPhotoUrl(matricule, collegue.getPhotoUrl());
-			update = true;
-			body += "Photo modifié<br/>";
-		}
-		return (update) ? ResponseEntity.status(HttpStatus.CREATED).body(body)
-				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Parametre invalide");
-	}
 
+		}
+		return lesCollegues.rechercherParMatricule(matricule);
+	}
 }
