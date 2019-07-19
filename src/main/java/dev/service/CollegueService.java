@@ -5,11 +5,13 @@ import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.entite.Collegue;
+import dev.entite.Photo;
 import dev.exception.CollegueInvalideException;
 import dev.exception.CollegueNonTrouverException;
 import dev.persistence.CollegueRepository;
@@ -76,5 +78,12 @@ public class CollegueService {
 			throw new CollegueInvalideException("Photo invalide");
 		}
 		return collegue;
+	}
+	
+	public List<Photo> getToutesLesPhotos(){
+		List<Collegue> collegue = collRepository.findAll();
+		return collegue.stream()
+				.map(collegues -> new Photo(collegues.getMatricule(), collegues.getPhotoUrl()))
+				.collect(Collectors.toList());
 	}
 }

@@ -32,10 +32,10 @@ public class StartupDataInit {
 			String nom = noms[(int) (Math.random() * (9 - 0))];
 			String prenom = prenoms[(int) (Math.random() * (9 - 0))];
 			String email = prenom.toLowerCase() + nom.toLowerCase() + "@mail.fr";
-			int annee = (int) (1970 + Math.random() * (40));
+			int annee = (int) (1970 + Math.random() * (30));
 			int mois = 1 + (int) (Math.random() * (12 - 1));
 			int jour = 1 + (int) (Math.random() * (28 - 1));
-			String photo = "https://upload.wikimedia.org/wikipedia/commons/0/09/Man_Silhouette.png";
+			String photo = "https://vignette.wikia.nocookie.net/jojo/images/6/6a/Star_Platinum_%28Stardust_Crusaders%2C_manga%29.png/revision/latest?cb=20180104204918&path-prefix=fr";
 			collegueRepo.save(new Collegue(matricule, nom, prenom, email, LocalDate.of(annee, mois, jour), photo));
 			count++;
 		}
