@@ -22,7 +22,7 @@ public class StartupDataInit {
 		// TODO insérer des collègues en base de données
 
 		int count = 0;
-		String noms[] = { "LEROY", "DURAND", "ROBERT", "PETIT", "MOREAU", "DUBOIS", "DUPOND", "BERANRD", "CASSAN",
+		String noms[] = { "LEROY", "DURAND", "ROBERT", "PETIT", "MOREAU", "DUBOIS", "DUPOND", "BERNARD", "CASSAN",
 				"OLLIVIER" };
 		String prenoms[] = { "Clement", "Yoann", "Erwan", "Julien", "Amandine", "Marion", "Margaux", "Martin", "Adrien",
 				"Robin" };
