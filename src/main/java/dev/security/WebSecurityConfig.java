@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import dev.filtre.JWTAuthorisation;
 
@@ -49,4 +52,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         .logoutSuccessHandler((req, resp, auth) -> resp.setStatus(HttpStatus.OK.value()))
         .deleteCookies(TOKEN_COOKIE);
     }
+    
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true); // you USUALLY want this
+        // likely you should limit this to specific origins
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        source.registerCorsConfiguration("/logout", config);
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+    
+    
 }
