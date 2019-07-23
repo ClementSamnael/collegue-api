@@ -11,67 +11,34 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import dev.entite.Collegue;
-import dev.entite.Login;
 
 @Component
 public class StartupDataInit {
 
-	@Autowired
-	CollegueRepository collegueRepo;
-	
-	@Autowired
-	LoginRepository loginRepo;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	// La méthode init va être invoquée au démarrage de l'application.
-	@EventListener(ContextRefreshedEvent.class)
-	public void init() {
+    @Autowired
+    CollegueRepository collegueRepo;
 
-		int count = 0;
-		String noms[] = { "LEROY", "DURAND", "ROBERT", "PETIT", "MOREAU", "DUBOIS", "DUPOND", "BERNARD", "CASSAN",
-				"OLLIVIER" };
-		String prenoms[] = { "Clement", "Yoann", "Erwan", "Julien", "Amandine", "Marion", "Margaux", "Martin", "Adrien",
-				"Robin" };
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-		while (count != 10) {
-			String matricule = UUID.randomUUID().toString();
-			String nom = noms[(int) (Math.random() * (9 - 0))];
-			String prenom = prenoms[(int) (Math.random() * (9 - 0))];
-			String email = prenom.toLowerCase() + nom.toLowerCase() + "@mail.fr";
-			int annee = (int) (1970 + Math.random() * (30));
-			int mois = 1 + (int) (Math.random() * (12 - 1));
-			int jour = 1 + (int) (Math.random() * (28 - 1));
-			String photo = "https://vignette.wikia.nocookie.net/jojo/images/6/6a/Star_Platinum_%28Stardust_Crusaders%2C_manga%29.png/revision/latest?cb=20180104204918&path-prefix=fr";
-			collegueRepo.save(new Collegue(matricule, nom, prenom, email, LocalDate.of(annee, mois, jour), photo));
-			count++;
-		}
-		
-		//Login ADMIN
-		Login logAdmin = new Login();
-		logAdmin.setLogin("logUser");
-		logAdmin.setMotDePasse(passwordEncoder.encode("passAdmin"));
-		logAdmin.setRoles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
-		
-		loginRepo.save(logAdmin);
-		
-		Collegue collegue = new Collegue();
+    // La méthode init va être invoquée au démarrage de l'application.
+    @EventListener(ContextRefreshedEvent.class)
+    public void init() {
+        Collegue col = new Collegue(UUID.randomUUID().toString(), "Durand", "Amandine", "amandine@mail.fr",
+                LocalDate.of(1991, 06, 21),
+                "https://vignette.wikia.nocookie.net/jjba/images/7/7f/Spice_Girl_infobox.png/revision/latest/scale-to-width-down/310?cb=20180517101701&path-prefix=fr",
+                "amande", passwordEncoder.encode("amande"), Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
+        collegueRepo.save(col);
 
-		collegue.setMatricule(UUID.randomUUID().toString());
-		collegue.setNom("Admin");
-		collegue.setPrenom("Admin");
-		collegue.setEmail("admin@mail.fr");
-		collegue.setDateDeNaissance(LocalDate.of(1992,06,11));
-		collegue.setPhotoUrl("https://vignette.wikia.nocookie.net/jjba/images/7/7c/StarPlatinum.jpg/revision/latest/scale-to-width-down/310?cb=20130809012821&path-prefix=fr");
-        
-        //Login USER
-        Login logUser = new Login();
-        logUser.setLogin("logUser");
-        logUser.setMotDePasse(passwordEncoder.encode("passUser"));
-        logUser.setRoles(Arrays.asList("ROLE_USER"));
-        
-        collegueRepo.save(collegue);
-        loginRepo.save(logUser);
-	}
+        collegueRepo.save(new Collegue(UUID.randomUUID().toString(), "Bernard", "Clement", "clement@mail.fr",
+                LocalDate.of(1992, 06, 11),
+                "https://vignette.wikia.nocookie.net/jjba/images/9/9f/Crazy_Diamond_Manga.Infobox.png/revision/latest/scale-to-width-down/310?cb=20180622215653&path-prefix=fr",
+                "clement", passwordEncoder.encode("clement"), Arrays.asList("ROLE_USER", "ROLE_ADMIN")));
+
+        collegueRepo.save(new Collegue(UUID.randomUUID().toString(), "Leroy", "Yoann", "yoann@mail.fr",
+                LocalDate.of(1992, 06, 11),
+                "https://vignette.wikia.nocookie.net/jojo/images/6/6a/Star_Platinum_%28Stardust_Crusaders%2C_manga%29.png/revision/latest?cb=20180104204918&path-prefix=fr",
+                "yoann", passwordEncoder.encode("yoann"), Arrays.asList("ROLE_USER")));
+
+    }
 }

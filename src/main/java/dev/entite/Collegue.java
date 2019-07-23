@@ -23,7 +23,13 @@ public class Collegue {
     @Column(name = "Photo")
     public String photoUrl;
 
+    @Column
+    private String login;// login
+    @Column
+    private String motDePasse;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     public Collegue() {
     }
@@ -38,12 +44,17 @@ public class Collegue {
         this.photoUrl = photoUrl;
     }
 
-    public Collegue(String nom, String prenom, String email, LocalDate dateDeNaissance, String photoUrl) {
+    public Collegue(String matricule, String nom, String prenom, String email, LocalDate dateDeNaissance,
+            String photoUrl, String login, String motDePasse, List<String> roles) {
+        this.matricule = matricule;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.dateDeNaissance = dateDeNaissance;
         this.photoUrl = photoUrl;
+        this.login = login;
+        this.motDePasse = motDePasse;
+        this.roles = roles;
     }
 
     public String getMatricule() {
@@ -92,6 +103,30 @@ public class Collegue {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     @Override

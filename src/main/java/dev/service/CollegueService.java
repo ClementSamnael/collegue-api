@@ -87,10 +87,8 @@ public class CollegueService {
 				.collect(Collectors.toList());
 	}
 
-    public boolean verifNom(String nom) {
-       List<Collegue> collegue = collRepository.findAll();
-        return collegue.stream()
-                .anyMatch(coll -> nom.equals(coll.getNom()));
-    }
+	public Optional<Collegue> findByLogin(String login){
+	    return collRepository.findByLogin(login);
+	}
 	
 }

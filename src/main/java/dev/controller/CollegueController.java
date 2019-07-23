@@ -2,11 +2,13 @@ package dev.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +23,7 @@ import dev.exception.CollegueInvalideException;
 import dev.exception.CollegueNonTrouverException;
 import dev.service.CollegueService;
 
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true")
 @RestController
 @RequestMapping(path = "/collegues")
 public class CollegueController {
@@ -29,6 +31,7 @@ public class CollegueController {
     @Autowired
     private CollegueService lesCollegues;
 
+    @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.GET)
     public List<String> getRechercherCollegue(@RequestParam String nomCollegue) {
 
@@ -40,22 +43,23 @@ public class CollegueController {
         return colleguesMa;
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.GET, path = "/{matricule}")
     public Collegue rechercherCollegueParMatricule(@PathVariable String matricule) throws CollegueNonTrouverException {
         return lesCollegues.rechercherParMatricule(matricule);
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.GET, path = "/photos")
     public List<Photo> getPhoto() {
         return lesCollegues.getToutesLesPhotos();
     }
     
-    
-    @RequestMapping(method = RequestMethod.GET, path = "/verifier-doublons")
-    public boolean verifNom(@RequestParam String nom) {
-        return lesCollegues.verifNom(nom.toUpperCase());
+    @Secured("ROLE_USER")
+    @RequestMapping(method = RequestMethod.GET, path = "/me")
+    public Optional<Collegue> getMe(){
+        return lesCollegues.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }
-    
 
     // Role des Admins
     @Secured("ROLE_ADMIN")

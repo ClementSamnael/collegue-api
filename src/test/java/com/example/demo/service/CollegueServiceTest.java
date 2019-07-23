@@ -10,11 +10,10 @@ import org.junit.Test;
 import dev.entite.Collegue;
 import dev.exception.CollegueInvalideException;
 import dev.service.CollegueService;
-import dev.util.Constantes;
 
 public class CollegueServiceTest {
 
-    CollegueService lesCollegues = Constantes.COLLEGUE_SERVICE;
+    CollegueService lesCollegues;
     Collegue collegue;
 
     @Test

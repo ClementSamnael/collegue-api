@@ -1,16 +1,16 @@
-package dev.entite;
+package dev.security;
 
 public class InfosAuthentification {
 
-    private String Login;
+    private String login;
     private String motDePasse;
 
     public String getLogin() {
-        return Login;
+        return login;
     }
 
-    public void setLogin(String Login) {
-        this.Login = Login;
+    public void setlogin(String login) {
+        this.login = login;
     }
 
     public String getMotDePasse() {
@@ -20,5 +20,5 @@ public class InfosAuthentification {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
-
+    
 }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
-@Secured("ROLE_ADMIN")
+@Configuration
 public class JWTAuthorisation extends OncePerRequestFilter {
 
     @Value("${jwt.cookie}")
@@ -44,10 +44,9 @@ public class JWTAuthorisation extends OncePerRequestFilter {
 
                         List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new)
                                 .collect(Collectors.toList());
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null,
-                                authorities);
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                                username, null, authorities);
                         SecurityContextHolder.getContext().setAuthentication(authentication);
-
                     });
         }
         chain.doFilter(req, res);
