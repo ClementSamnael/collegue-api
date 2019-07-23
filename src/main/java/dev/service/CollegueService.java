@@ -86,4 +86,11 @@ public class CollegueService {
 				.map(collegues -> new Photo(collegues.getMatricule(), collegues.getPhotoUrl()))
 				.collect(Collectors.toList());
 	}
+
+    public boolean verifNom(String nom) {
+       List<Collegue> collegue = collRepository.findAll();
+        return collegue.stream()
+                .anyMatch(coll -> nom.equals(coll.getNom()));
+    }
+	
 }

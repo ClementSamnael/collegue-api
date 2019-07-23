@@ -1,24 +1,29 @@
 package dev.entite;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
 
 @Entity
 public class Collegue {
 
-	@Id
-    public String matricule;
+    @Id
+    public String matricule; // Identifiant de connexion
     public String nom;
     public String prenom;
     public String email;
-	@Column(name = "Date_de_Naissance")
+    @Column(name = "Date_de_Naissance")
     public LocalDate dateDeNaissance;
-	@Column(name = "Photo")
+    @Column(name = "Photo")
     public String photoUrl;
+
+
 
     public Collegue() {
     }
@@ -32,7 +37,7 @@ public class Collegue {
         this.dateDeNaissance = dateDeNaissance;
         this.photoUrl = photoUrl;
     }
-    
+
     public Collegue(String nom, String prenom, String email, LocalDate dateDeNaissance, String photoUrl) {
         this.nom = nom;
         this.prenom = prenom;
