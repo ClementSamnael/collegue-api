@@ -16,7 +16,7 @@ import dev.entite.Collegue;
 public class StartupDataInit {
 
     @Autowired
-    CollegueRepository collegueRepo;
+    CollegueRepository collRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -28,17 +28,16 @@ public class StartupDataInit {
                 LocalDate.of(1991, 06, 21),
                 "https://vignette.wikia.nocookie.net/jjba/images/7/7f/Spice_Girl_infobox.png/revision/latest/scale-to-width-down/310?cb=20180517101701&path-prefix=fr",
                 "amande", passwordEncoder.encode("amande"), Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
-        collegueRepo.save(col);
+        collRepository.save(col);
 
-        collegueRepo.save(new Collegue(UUID.randomUUID().toString(), "Bernard", "Clement", "clement@mail.fr",
+        collRepository.save(new Collegue(UUID.randomUUID().toString(), "Bernard", "Clement", "clement@mail.fr",
                 LocalDate.of(1992, 06, 11),
                 "https://vignette.wikia.nocookie.net/jjba/images/9/9f/Crazy_Diamond_Manga.Infobox.png/revision/latest/scale-to-width-down/310?cb=20180622215653&path-prefix=fr",
                 "clement", passwordEncoder.encode("clement"), Arrays.asList("ROLE_USER", "ROLE_ADMIN")));
 
-        collegueRepo.save(new Collegue(UUID.randomUUID().toString(), "Leroy", "Yoann", "yoann@mail.fr",
+        collRepository.save(new Collegue(UUID.randomUUID().toString(), "Leroy", "Yoann", "yoann@mail.fr",
                 LocalDate.of(1992, 06, 11),
                 "https://vignette.wikia.nocookie.net/jojo/images/6/6a/Star_Platinum_%28Stardust_Crusaders%2C_manga%29.png/revision/latest?cb=20180104204918&path-prefix=fr",
                 "yoann", passwordEncoder.encode("yoann"), Arrays.asList("ROLE_USER")));
-
     }
 }
