@@ -36,8 +36,8 @@ public class StartupDataInit {
                 "clement", passwordEncoder.encode("clement"), Arrays.asList("ROLE_USER", "ROLE_ADMIN")));
 
         collRepository.save(new Collegue(UUID.randomUUID().toString(), "Leroy", "Yoann", "yoann@mail.fr",
-                LocalDate.of(1992, 06, 11),
-                "https://vignette.wikia.nocookie.net/jojo/images/6/6a/Star_Platinum_%28Stardust_Crusaders%2C_manga%29.png/revision/latest?cb=20180104204918&path-prefix=fr",
+                LocalDate.of(1992, 9, 11),
+                "https://vignette.wikia.nocookie.net/jjba/images/1/14/Gold_Experience_color.png/revision/latest?cb=20180417125730&path-prefix=fr",
                 "yoann", passwordEncoder.encode("yoann"), Arrays.asList("ROLE_USER")));
     }
 }
